@@ -18,10 +18,10 @@ public:
 
   ~DataBase()
   {
-    m_result = nullptr;
-    m_row = nullptr;
     delete m_result;
     delete m_row;
+    m_result = nullptr;
+    m_row = nullptr;
   }
  
 private:
