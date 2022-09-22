@@ -8,12 +8,18 @@
 void DataBase::mysqlConnectionSetup()
 {
   MYSQL* connection = mysql_init(NULL);
-  if(!mysql_real_connect(connection, m_connectionDetails.m_server, m_connectionDetails.m_user, m_connectionDetails.m_password, m_connectionDetails.m_database, 0, NULL, 0))
+  if(!mysql_real_connect(connection, 
+                         m_connectionDetails.m_server.c_str(), 
+                         m_connectionDetails.m_user.c_str(), 
+                         m_connectionDetails.m_password.c_str(), 
+                         m_connectionDetails.m_database.c_str(), 
+                         0, 
+                         NULL, 
+                         0))
   {
     std::cout << "Connection error: " << mysql_error(connection) << std::endl;
     exit(1);
   }
-
   m_connection = connection;
 }
 
@@ -28,14 +34,19 @@ MYSQL_RES* DataBase::mysqlExecuteQuery(const char* sqlQuery)
   return mysql_use_result(m_connection);
 }
 
+
+
 void DataBase::showDatabase()
 { 
   m_result = mysqlExecuteQuery("select * from person");
+
   while((m_row = mysql_fetch_row(m_result)) != NULL)
   {
     std::cout << m_row[0] << " | " << m_row[1] << " | "  << m_row[2] << " | " << m_row[3] << " | " << m_row[4] << " | " << m_row[5] << std::endl; // TODO
   }  
 }
+
+
 
 MYSQL* DataBase::getConnection()
 {
