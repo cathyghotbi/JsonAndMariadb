@@ -19,9 +19,8 @@ public:
   ~DataBase()
 
   {
-    delete m_result;
+    mysql_free_result(m_result);
     delete m_row;
-    m_result = nullptr;
     m_row = nullptr;
   }
 
