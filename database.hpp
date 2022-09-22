@@ -17,13 +17,14 @@ public:
   MYSQL* getConnection();
 
   ~DataBase()
+
   {
     delete m_result;
     delete m_row;
     m_result = nullptr;
     m_row = nullptr;
   }
- 
+
 private:
   MYSQL* m_connection;
   MYSQL_RES* m_result;
@@ -31,10 +32,10 @@ private:
 
   struct ConnectionDetails
   {
-    const char* m_server;
-    const char* m_user;
-    const char* m_password;
-    const char* m_database;
+    std::string m_server;
+    std::string m_user;
+    std::string m_password;
+    std::string m_database;
   };
 
   ConnectionDetails m_connectionDetails;
